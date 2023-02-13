@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { BadRequestException, InternalServerErrorException } from '@nestjs/common/exceptions';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -37,21 +38,29 @@ export class ProductsService {
       this.handleDBExceptions(error)
     }
   }
-
+  //TODO: Paginar
   async findAll() {
-    return await this.productRepository.find()
+    return await this.productRepository.find({})
   }
 
   async findOne(id: string) {
-    return await this.productRepository.findOneBy({id});
+
+    const product = await this.productRepository.findOneBy({ id });
+    if (!product) {
+      throw new NotFoundException(`Product with id ${id} not found`)
+    }
+    return product;
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
     return `This action updates a #${id} product`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: string) {
+    const product = await this.findOne(id)
+    await this.productRepository.remove(product)
+
+
   }
 
   private handleDBExceptions(error: any) {
