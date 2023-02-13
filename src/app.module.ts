@@ -21,7 +21,6 @@ import { CommonModule } from './common/common.module';
   }),
     ProductsModule,
     CommonModule,
-
   ],
 
 })
