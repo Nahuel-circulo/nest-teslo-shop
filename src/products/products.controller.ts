@@ -5,6 +5,8 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { ParseUUIDPipe } from '@nestjs/common';
 import { Query } from '@nestjs/common';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
+import { Auth } from 'src/auth/decorators';
+import { ValidRoles } from 'src/auth/interfaces';
 
 @Controller('products')
 export class ProductsController {
@@ -32,6 +34,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
+  @Auth(ValidRoles.admin)
   remove(@Param('id',ParseUUIDPipe) id: string) {
     return this.productsService.remove(id);
   }
