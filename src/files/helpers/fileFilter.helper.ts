@@ -2,7 +2,7 @@
 
 
 export const fileFilter = (
-    req: Express.Request, file: Express.Multer.File, callback: Function
+    req: Express.Request, file: Express.Multer.File, callback: (error:Error|null,boolean)=>void
 ) => {
 
     if (!file) {
