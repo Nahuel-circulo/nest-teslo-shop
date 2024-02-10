@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post,  Param} from '@nestjs/common';
 import { Res, UploadedFile, UseInterceptors } from '@nestjs/common/decorators';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
 import { FilesService } from './files.service';
-import { fileFilter } from './helpers/fileFileter.helper';
+import { fileFilter } from './helpers/fileFilter.helper';
 import { BadRequestException } from '@nestjs/common/exceptions';
 import { diskStorage } from 'multer';
 import { fileNamer } from './helpers/fileNamer.helper';
