@@ -11,6 +11,7 @@ import { validate as isUUID } from 'uuid';
 
 import { Product } from './entities/product.entity';
 import { ProductImage } from './entities';
+import { User } from 'src/auth/entities/user.entity';
 //TODO: buscar patron repositorio
 //TODO: buscar transacciones
 
@@ -33,7 +34,7 @@ export class ProductsService {
   ) { }
 
 
-  async create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto,user:User) {
     try {
 
       const { images = [], ...productDetails } = createProductDto;
@@ -41,7 +42,8 @@ export class ProductsService {
       //type orm infiere que se esta creando un producto y asigna el productId en image
       const product = this.productRepository.create({
         ...productDetails,
-        images: images.map(image => this.productImageRepository.create({ url: image }))
+        images: images.map(image => this.productImageRepository.create({ url: image })),
+        user
       })
       await this.productRepository.save(product);
 
@@ -103,7 +105,7 @@ export class ProductsService {
     }
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto) {
+  async update(id: string, updateProductDto: UpdateProductDto,user:User) {
 
 
     //TODO:Transacciones
@@ -137,6 +139,7 @@ export class ProductsService {
         product.images = images.map(image => this.productImageRepository.create({ url: image }))
       }
 
+      product.user = user; 
       // esto es otra transaccion
       await queryRunner.manager.save(product)
 
