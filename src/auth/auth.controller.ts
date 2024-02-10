@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { SetMetadata, UseGuards } from '@nestjs/common/decorators';
+import {  UseGuards } from '@nestjs/common/decorators';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -28,6 +28,12 @@ export class AuthController {
   @Post('login')
   loginUser(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
+  }
+
+  @Get('check-status')
+  @Auth(ValidRoles.user)
+  checkAuthStatus(@GetUser() user:User){
+    return this.authService.checkAuthStatus(user);
   }
 
 
