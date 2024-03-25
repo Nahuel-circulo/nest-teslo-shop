@@ -6,12 +6,16 @@ import { IsEmail, IsString, Matches, MaxLength, MinLength } from "class-validato
 
 export class LoginUserDto {
 
-    @ApiProperty()
+    @ApiProperty({
+        example:"hello@google.com"
+    })
     @IsString()
     @IsEmail()
     email: string;
     
-    @ApiProperty()
+    @ApiProperty({
+        example:"Example1"
+    })
     @IsString()
     @MinLength(8)
     @MaxLength(50)
