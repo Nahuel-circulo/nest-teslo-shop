@@ -63,7 +63,6 @@ export class User {
     roles: string[];
 
 
-    @ApiProperty()
     @OneToMany(
         () => Product,
         (product) => product.user,
