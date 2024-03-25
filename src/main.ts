@@ -16,8 +16,8 @@ async function bootstrap() {
   )
 
   const config = new DocumentBuilder()
-    .setTitle('Teslo RESTgul API')
-    .setDescription('Teslo shops endpoints')
+    .setTitle('Restfull API')
+    .setDescription('Api with Nest JS')
     .setVersion('1.0')
     .build();
 
